@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  CONSUMER
+}
+
+enum OrderStatus {
+  RECEIVED
+  PREPARING
+  DISPATCHED
+  DELIVERED
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  role      Role     @default(CONSUMER)
+
+  consumer Consumer?
+
+  @@map("users")
+}
+
+model Consumer {
+  id        String   @id @default(cuid())
+  userId    String   @unique @map("user_id")
+  fullName  String   @map("full_name")
+  contact   String
+  address   String
+  status    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user  User    @relation(fields: [userId], references: [id])
+  Order Order[]
+
+  @@map("consumers")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  price       Decimal  @db.Money
+  stock       Int
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  OrderItem OrderItem[]
+
+  @@map("products")
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  consumerId String      @map("consumer_id")
+  status     OrderStatus @default(PREPARING)
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+
+  consumer  Consumer    @relation(fields: [consumerId], references: [id])
+  OrderItem OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String   @map("order_id")
+  productId String   @map("product_id")
+  quantity  Int
+  unitPrice Decimal  @map("unit_price") @db.Money
+  subtotal  Decimal  @db.Money
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+model SalesReport {
+  id       String   @id @default(cuid())
+  period   DateTime
+  total    Decimal
+  products Int
+  path     String
+
+  @@map("sales_reports")
+}

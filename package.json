@@ -3,8 +3,18 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
-    "dev": "tsx watch src/server.ts"
+    "dev": "tsx watch src/server.ts",
+    "migration": "cross-env DATABASE_HOST='localhost' prisma migrate dev",
+    "migration:deploy": "prisma migrate deploy",
+    "migration:reset": "cross-env DATABASE_HOST='localhost' prisma migrate reset --force",
+    "studio": "cross-env DATABASE_HOST='localhost' prisma studio",
+    "generate": "prisma generate",
+    "lint": "eslint ./src --ext .ts",
+    "lint:fix": "eslint ./src --ext .ts --fix"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +24,7 @@
     "@types/node": "^20.11.30",
     "@typescript-eslint/eslint-plugin": "^7.4.0",
     "@typescript-eslint/parser": "^7.4.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^9.1.0",
