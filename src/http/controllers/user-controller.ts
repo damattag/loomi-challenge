@@ -53,7 +53,6 @@ class UserController {
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
       const { id } = req.params;
-      console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA', id);
 
       const deleteUseCase = makeDeleteUseCase();
 
