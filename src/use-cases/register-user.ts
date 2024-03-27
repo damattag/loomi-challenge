@@ -2,7 +2,11 @@ import { $Enums, User } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
 import { IUserRepository } from '@repositories/user-repository';
+import mailTemplate from '@utils/mail-template';
+import { MailServer } from '@utils/mail-handler';
+
 import { UserAlreadyExistsError } from './errors/user-already-exists-error';
+import { SendMailError } from './errors/send-mail-error';
 
 interface RegisterUseCaseRequest {
   name: string;
@@ -34,6 +38,19 @@ export class RegisterUseCase {
 
     const now = new Date();
     const emailVerifyTokenExpiry = now.setHours(now.getHours() + 1);
+
+    const html = mailTemplate(data.name, token, 'emailVerify');
+
+    const mailResponse = await MailServer({
+      html,
+      subjectText: 'Verificação de e-mail',
+      userEmail: data.email,
+      userName: data.name,
+    });
+
+    if (!mailResponse) {
+      throw new SendMailError();
+    }
 
     const user = await this.userRepository.create({
       name: data.name,

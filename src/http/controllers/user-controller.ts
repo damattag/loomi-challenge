@@ -7,6 +7,8 @@ import { makeVerifyEmailUseCase } from '@use-cases/factories/make-verify-email-u
 import { makeRegisterUseCase } from '@use-cases/factories/make-register-use-case';
 import { makeDeleteUseCase } from '@use-cases/factories/make-delete-user-use-case';
 
+import mailTemplate from '@utils/mail-template';
+
 class UserController {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
