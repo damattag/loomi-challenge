@@ -1,7 +1,8 @@
-import { $Enums, User } from '@prisma/client';
-import { compare, hash } from 'bcryptjs';
+import { User } from '@prisma/client';
+import { compare } from 'bcryptjs';
 
 import { IUserRepository } from '@repositories/user-repository';
+
 import { UserNotFoundError } from './errors/user-not-found-error';
 import { InvalidTokenError } from './errors/invalid-token-error';
 

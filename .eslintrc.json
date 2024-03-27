@@ -28,12 +28,7 @@
   "settings": {
     "import/resolver": {
       "typescript": {},
-      "alias": [
-        ["@controllers", "./src/controllers"],
-        ["@DTOs", "./src/DTOs"],
-        ["@repositories", "./src/repositories"],
-        ["@database", "./src/database"]
-      ]
+      "alias": ["@*", "./src/*"]
     }
   },
   "rules": {
