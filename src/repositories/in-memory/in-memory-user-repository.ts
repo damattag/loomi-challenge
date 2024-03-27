@@ -30,4 +30,18 @@ export class InMemoryUserRepository implements IUserRepository {
 
     return user;
   }
+
+  async delete(id: string) {
+    const userIndex = this.items.findIndex((item) => item.id === id);
+
+    if (userIndex === -1) {
+      throw new Error('User not found');
+    }
+
+    const user = this.items[userIndex];
+
+    this.items.splice(userIndex, 1);
+
+    return user;
+  }
 }

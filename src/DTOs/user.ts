@@ -13,10 +13,14 @@ export const UserRegisterSchema = z.object({
     .email({
       message: 'O e-mail precisa ser válido',
     }),
-  password: z.string({
-    invalid_type_error: 'A senha precisa ser uma string',
-    required_error: 'A senha é obrigatória',
-  }),
+  password: z
+    .string({
+      invalid_type_error: 'A senha precisa ser uma string',
+      required_error: 'A senha é obrigatória',
+    })
+    .min(6, {
+      message: 'A senha precisa ter no mínimo 6 caracteres',
+    }),
   role: z
     .enum(['CONSUMER', 'ADMIN'], {
       invalid_type_error: 'O papel precisa ser CONSUMER ou ADMIN',
