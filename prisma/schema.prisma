@@ -26,13 +26,16 @@ enum OrderStatus {
 }
 
 model User {
-  id        String   @id @default(cuid())
-  name      String
-  email     String   @unique
-  password  String
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  role      Role     @default(CONSUMER)
+  id                     String    @id @default(cuid())
+  name                   String
+  email                  String    @unique
+  password               String
+  emailVerified          Boolean   @default(false) @map("email_verified")
+  emailTokenExpiry       DateTime? @map("email_token_expiry")
+  emailVerificationToken String?   @map("email_verification_token")
+  createdAt              DateTime  @default(now()) @map("created_at")
+  updatedAt              DateTime  @updatedAt @map("updated_at")
+  role                   Role      @default(CONSUMER)
 
   consumer Consumer?
 

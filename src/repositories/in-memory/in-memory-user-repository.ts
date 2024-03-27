@@ -1,4 +1,4 @@
-import { Prisma, User } from '@prisma/client';
+import { $Enums, Prisma, User } from '@prisma/client';
 import { IUserRepository } from '@repositories/user-repository';
 import { randomUUID } from 'node:crypto';
 
@@ -11,6 +11,9 @@ export class InMemoryUserRepository implements IUserRepository {
       name: data.name,
       email: data.email,
       password: data.password,
+      emailVerificationToken: data.emailVerificationToken || null,
+      emailTokenExpiry: new Date(data.emailTokenExpiry!),
+      emailVerified: data.emailVerified || false,
       createdAt: new Date(),
       updatedAt: new Date(),
       role: data.role || 'CONSUMER',
@@ -41,6 +44,16 @@ export class InMemoryUserRepository implements IUserRepository {
     const user = this.items[userIndex];
 
     this.items.splice(userIndex, 1);
+
+    return user;
+  }
+
+  async save(user: User) {
+    const userIndex = this.items.findIndex((item) => item.id === user.id);
+
+    if (userIndex >= 0) {
+      this.items[userIndex] = user;
+    }
 
     return user;
   }

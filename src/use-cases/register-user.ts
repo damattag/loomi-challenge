@@ -29,11 +29,19 @@ export class RegisterUseCase {
       throw new UserAlreadyExistsError();
     }
 
+    const token = Math.floor(Math.random() * 999999).toString();
+    const hashedToken = await hash(token, 6);
+
+    const now = new Date();
+    const emailVerifyTokenExpiry = now.setHours(now.getHours() + 1);
+
     const user = await this.userRepository.create({
       name: data.name,
       email: data.email,
       password: hashedPassword,
       role: data.role,
+      emailVerificationToken: hashedToken,
+      emailTokenExpiry: new Date(emailVerifyTokenExpiry),
     });
 
     return { user };
