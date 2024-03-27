@@ -25,9 +25,13 @@ export async function verifyJwt(
       throw new UnauthorizedError();
     }
 
-    const { id, role } = decoded as JwtPayload;
+    const { sub, role } = decoded as JwtPayload;
 
-    const user = await userRepository.findById(id);
+    if (!sub || !role) {
+      throw new UnauthorizedError();
+    }
+
+    const user = await userRepository.findById(sub);
 
     if (!user || user.role !== role) {
       throw new UnauthorizedError();

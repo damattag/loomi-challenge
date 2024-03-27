@@ -7,7 +7,7 @@ const userRouter = Router();
 
 userRouter.route('/').post(UserController.register);
 userRouter.route('/verify-email').post(UserController.verifyEmail);
-userRouter.route('/authenticate').post(UserController.authenticate);
+userRouter.route('/sessions').post(UserController.authenticate);
 userRouter.route('/:id').delete([verifyJwt], UserController.delete);
 
 export default userRouter;
