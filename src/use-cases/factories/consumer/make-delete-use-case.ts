@@ -1,5 +1,5 @@
 import { PrismaConsumerRepository } from '@repositories/prisma/prisma-consumer-repository';
-import { DeleteConsumerUseCase } from '@use-cases/consumer/consumer-delete';
+import { DeleteConsumerUseCase } from '@use-cases/consumer/delete';
 
 export function makeConsumerDeleteUseCase() {
   const consumersRepository = new PrismaConsumerRepository();

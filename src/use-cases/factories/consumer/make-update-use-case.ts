@@ -1,5 +1,5 @@
 import { PrismaConsumerRepository } from '@repositories/prisma/prisma-consumer-repository';
-import { UpdateConsumerUseCase } from '@use-cases/consumer/consumer-update';
+import { UpdateConsumerUseCase } from '@use-cases/consumer/update';
 
 export function makeConsumerUpdateUseCase() {
   const consumersRepository = new PrismaConsumerRepository();

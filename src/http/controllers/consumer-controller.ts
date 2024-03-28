@@ -3,11 +3,11 @@ import { Request, Response, NextFunction } from 'express';
 import { ConsumerRegisterSchema } from '@DTOs/consumer/register';
 import { SearchByNameSchema } from '@DTOs/consumer/search-by-name';
 
-import { makeConsumerRegisterUseCase } from '@use-cases/factories/consumer/make-consumer-register-use-case';
-import { makeListConsumerUseCase } from '@use-cases/factories/consumer/make-consumer-list-use-case';
-import { makeConsumerGetProfileUseCase } from '@use-cases/factories/consumer/make-consumer-get-profile-use-case';
-import { makeSearchConsumerByNameUseCase } from '@use-cases/factories/consumer/make-consumer-search-by-name-use-case';
-import { makeConsumerDeleteUseCase } from '@use-cases/factories/consumer/make-consumer-delete-use-case';
+import { makeConsumerRegisterUseCase } from '@use-cases/factories/consumer/make-register-use-case';
+import { makeListConsumerUseCase } from '@use-cases/factories/consumer/make-list-use-case';
+import { makeConsumerGetProfileUseCase } from '@use-cases/factories/consumer/make-get-profile-use-case';
+import { makeSearchConsumerByNameUseCase } from '@use-cases/factories/consumer/make-search-by-name-use-case';
+import { makeConsumerDeleteUseCase } from '@use-cases/factories/consumer/make-delete-use-case';
 
 class ConsumerController {
   async register(req: Request, res: Response, next: NextFunction) {
