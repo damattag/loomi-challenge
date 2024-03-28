@@ -1,7 +1,7 @@
 import { PrismaUserRepository } from '@repositories/prisma/prisma-user-repository';
-import { VerifyEmailUseCase } from '../user-verify-email';
+import { VerifyEmailUseCase } from '@use-cases/user/user-verify-email';
 
-export function makeVerifyEmailUseCase() {
+export function makeUserVerifyEmailUseCase() {
   const usersRepository = new PrismaUserRepository();
   const verifyemailUseCase = new VerifyEmailUseCase(usersRepository);
 

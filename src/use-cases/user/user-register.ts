@@ -6,8 +6,8 @@ import { IUserRepository } from '@repositories/user-repository';
 import mailTemplate from '@utils/mail-template';
 import { MailServer } from '@utils/mail-handler';
 
-import { UserAlreadyExistsError } from './errors/user-already-exists-error';
-import { SendMailError } from './errors/send-mail-error';
+import { UserAlreadyExistsError } from '../errors/user-already-exists-error';
+import { SendMailError } from '../errors/send-mail-error';
 
 interface RegisterUseCaseRequest {
   name: string;

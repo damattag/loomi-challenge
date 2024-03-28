@@ -5,17 +5,17 @@ import { UserRegisterSchema } from '@DTOs/user-register';
 import { VerifyEmailSchema } from '@DTOs/verify-email';
 import { AuthenticateSchema } from '@DTOs/authenticate';
 
-import { makeVerifyEmailUseCase } from '@use-cases/factories/make-verify-email-use-case';
-import { makeRegisterUseCase } from '@use-cases/factories/make-register-use-case';
-import { makeDeleteUseCase } from '@use-cases/factories/make-delete-user-use-case';
-import { makeAuthenticateUseCase } from '@use-cases/factories/make-authenticate-use-case';
+import { makeUserVerifyEmailUseCase } from '@use-cases/factories/user/make-user-verify-email-use-case';
+import { makeUserRegisterUseCase } from '@use-cases/factories/user/make-user-register-use-case';
+import { makeUserDeleteUseCase } from '@use-cases/factories/user/make-user-delete-use-case';
+import { makeUserAuthenticateUseCase } from '@use-cases/factories/user/make-user-authenticate-use-case';
 
 class UserController {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       const data = UserRegisterSchema.parse(req.body);
 
-      const registerUseCase = makeRegisterUseCase();
+      const registerUseCase = makeUserRegisterUseCase();
 
       await registerUseCase.execute(data);
 
@@ -33,7 +33,7 @@ class UserController {
     try {
       const { email, token } = VerifyEmailSchema.parse(req.body);
 
-      const verifyEmailUseCase = makeVerifyEmailUseCase();
+      const verifyEmailUseCase = makeUserVerifyEmailUseCase();
 
       await verifyEmailUseCase.execute({
         email,
@@ -54,7 +54,7 @@ class UserController {
     try {
       const { id } = req.params;
 
-      const deleteUseCase = makeDeleteUseCase();
+      const deleteUseCase = makeUserDeleteUseCase();
 
       await deleteUseCase.execute(id);
 
@@ -72,7 +72,7 @@ class UserController {
     try {
       const data = AuthenticateSchema.parse(req.body);
 
-      const authenticateUseCase = makeAuthenticateUseCase();
+      const authenticateUseCase = makeUserAuthenticateUseCase();
 
       const { user } = await authenticateUseCase.execute(data);
 
