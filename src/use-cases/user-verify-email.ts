@@ -3,7 +3,7 @@ import { compare } from 'bcryptjs';
 
 import { IUserRepository } from '@repositories/user-repository';
 
-import { NotFoundError } from './errors/user-not-found-error';
+import { NotFoundError } from './errors/not-found-error';
 import { InvalidTokenError } from './errors/invalid-token-error';
 
 interface VerifyEmailUseCaseRequest {
