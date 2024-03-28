@@ -37,9 +37,12 @@ export class PrismaConsumerRepository implements IConsumerRepository {
     return consumer;
   }
 
-  async save(data: Consumer): Promise<Consumer> {
+  async save(
+    id: string,
+    data: Prisma.ConsumerUncheckedUpdateInput,
+  ): Promise<Consumer> {
     const consumer = await prisma.consumer.update({
-      where: { id: data.id },
+      where: { id },
       data,
     });
 

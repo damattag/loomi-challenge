@@ -4,13 +4,10 @@ import { IConsumerRepository } from '@repositories/consumer-repository';
 
 interface UpdateConsumerUseCaseRequest {
   id: string;
-  userId: string;
-  fullName: string;
-  contact: string;
-  address: string;
-  status: boolean;
-  createdAt: Date;
-  updatedAt: Date;
+  fullName?: string;
+  contact?: string;
+  address?: string;
+  status?: boolean;
 }
 
 interface UpdateConsumerUseCaseResponse {
@@ -23,7 +20,7 @@ export class UpdateConsumerUseCase {
   async execute(
     data: UpdateConsumerUseCaseRequest,
   ): Promise<UpdateConsumerUseCaseResponse> {
-    const consumer = await this.consumerRepository.save(data);
+    const consumer = await this.consumerRepository.save(data.id, data);
 
     return { consumer };
   }

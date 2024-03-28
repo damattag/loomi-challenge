@@ -60,15 +60,26 @@ export class InMemoryConsumerRepository implements IConsumerRepository {
     return consumer;
   }
 
-  async save(consumer: Consumer) {
-    const consumerIndex = this.items.findIndex(
-      (item) => item.id === consumer.id,
-    );
+  async save(id: string, data: Prisma.ConsumerUncheckedUpdateInput) {
+    const consumerIndex = this.items.findIndex((item) => item.id === data.id);
 
-    if (consumerIndex >= 0) {
-      this.items[consumerIndex] = consumer;
+    if (consumerIndex === -1) {
+      throw new Error('Consumer not found');
     }
 
-    return consumer;
+    const consumer = this.items[consumerIndex];
+
+    const updatedConsumer = {
+      id: consumer.id,
+      userId: consumer.userId,
+      fullName: (data.fullName as string | undefined) || consumer.fullName,
+      contact: (data.contact as string | undefined) || consumer.contact,
+      address: (data.address as string | undefined) || consumer.address,
+      status: (data.status as boolean | undefined) || consumer.status,
+      createdAt: consumer.createdAt,
+      updatedAt: new Date(),
+    };
+
+    return updatedConsumer;
   }
 }

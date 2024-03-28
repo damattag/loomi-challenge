@@ -5,6 +5,6 @@ export interface IConsumerRepository {
   findAll: (name?: string) => Promise<Consumer[]>;
   findByUserId: (userId: string) => Promise<Consumer | null>;
   findById: (id: string) => Promise<Consumer | null>;
-  save: (data: Consumer) => Promise<Consumer>;
+  save: (id: string, data: Prisma.ConsumerUpdateInput) => Promise<Consumer>;
   delete: (id: string) => Promise<Consumer>;
 }
