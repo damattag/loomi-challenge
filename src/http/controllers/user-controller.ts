@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-import { UserRegisterSchema } from '@DTOs/user-register';
-import { VerifyEmailSchema } from '@DTOs/verify-email';
-import { AuthenticateSchema } from '@DTOs/authenticate';
+import { UserRegisterSchema } from '@DTOs/user/register';
+import { VerifyEmailSchema } from '@DTOs/user/verify-email';
+import { AuthenticateSchema } from '@DTOs/user/authenticate';
 
 import { makeUserVerifyEmailUseCase } from '@use-cases/factories/user/make-user-verify-email-use-case';
 import { makeUserRegisterUseCase } from '@use-cases/factories/user/make-user-register-use-case';

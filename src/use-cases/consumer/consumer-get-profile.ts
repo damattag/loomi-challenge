@@ -2,7 +2,7 @@ import { Consumer } from '@prisma/client';
 
 import { IConsumerRepository } from '@repositories/consumer-repository';
 
-import { NotFoundError } from './errors/not-found-error';
+import { NotFoundError } from '../errors/not-found-error';
 
 interface GetProfileConsumerUseCaseResponse {
   consumer: Consumer;
