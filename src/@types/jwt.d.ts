@@ -2,7 +2,7 @@ import { $Enums } from '@prisma/client';
 
 declare module 'jsonwebtoken' {
   export interface JwtPayload {
-    id: string;
+    sub: string; //userId
     role: $Enums.Role;
   }
 }

@@ -2,6 +2,7 @@ import { $Enums, User } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
 import { IUserRepository } from '@repositories/user-repository';
+
 import mailTemplate from '@utils/mail-template';
 import { MailServer } from '@utils/mail-handler';
 

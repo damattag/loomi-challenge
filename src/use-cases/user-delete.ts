@@ -1,4 +1,4 @@
-import { $Enums, User } from '@prisma/client';
+import { User } from '@prisma/client';
 
 import { IUserRepository } from '@repositories/user-repository';
 
