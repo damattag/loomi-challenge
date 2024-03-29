@@ -4,11 +4,7 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { UnauthorizedError } from '@use-cases/errors/unauthorized-error';
 import { PrismaUserRepository } from '@repositories/prisma/prisma-user-repository';
 
-export async function verifyJwt(
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) {
+export async function verifyJwt(req: Request, _: Response, next: NextFunction) {
   try {
     const userRepository = new PrismaUserRepository();
     const authHeader = req.headers.authorization;
