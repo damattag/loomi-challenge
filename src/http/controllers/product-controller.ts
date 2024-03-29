@@ -71,11 +71,11 @@ class ProductController {
 
   async getProduct(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { productId } = req.params;
 
       const getProductUseCase = makeGetProductUseCase();
 
-      const { product } = await getProductUseCase.execute({ id });
+      const { product } = await getProductUseCase.execute({ id: productId });
 
       res.status(200).json({
         data: product,
@@ -90,7 +90,7 @@ class ProductController {
 
   async save(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { productId } = req.params;
       const data = ProductUpdateSchema.parse(req.body);
 
       const updateUseCase = makeProductUpdateUseCase();
@@ -102,7 +102,7 @@ class ProductController {
         ...data,
         description: lowerCaseDescription,
         name: lowerCaseName,
-        id,
+        id: productId,
       });
 
       res.status(200).json({
@@ -117,11 +117,11 @@ class ProductController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { productId } = req.params;
 
       const deleteUseCase = makeProductDeleteUseCase();
 
-      await deleteUseCase.execute(id);
+      await deleteUseCase.execute(productId);
 
       res.status(200).json({
         message: 'Produto deletado com sucesso.',

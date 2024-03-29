@@ -62,11 +62,11 @@ class ConsumerController {
 
   async getProfile(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { consumerId } = req.params;
 
       const getProfileUseCase = makeConsumerGetProfileUseCase();
 
-      const { consumer } = await getProfileUseCase.execute(id);
+      const { consumer } = await getProfileUseCase.execute(consumerId);
 
       res.status(200).json({
         data: consumer,
@@ -108,7 +108,7 @@ class ConsumerController {
 
   async save(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { consumerId } = req.params;
       const data = ConsumerUpdateSchema.parse(req.body);
 
       const updateUseCase = makeConsumerUpdateUseCase();
@@ -118,7 +118,7 @@ class ConsumerController {
       await updateUseCase.execute({
         ...data,
         fullName: lowerCaseName,
-        id,
+        id: consumerId,
       });
 
       res.status(200).json({
@@ -133,11 +133,11 @@ class ConsumerController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { consumerId } = req.params;
 
       const deleteUseCase = makeConsumerDeleteUseCase();
 
-      await deleteUseCase.execute(id);
+      await deleteUseCase.execute(consumerId);
 
       res.status(200).json({
         message: 'Cliente deletado com sucesso.',
