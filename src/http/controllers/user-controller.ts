@@ -10,10 +10,20 @@ import { makeUserRegisterUseCase } from '@use-cases/factories/user/make-user-reg
 import { makeUserDeleteUseCase } from '@use-cases/factories/user/make-delete-use-case';
 import { makeUserAuthenticateUseCase } from '@use-cases/factories/user/make-authenticate-use-case';
 
+import { verifyJwt } from '@http/middlewares/verify-jwt';
+import { verifyPermission } from '@http/middlewares/verify-permission';
+
 class UserController {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
       const data = UserRegisterSchema.parse(req.body);
+
+      if (data.role === 'ADMIN') {
+        await Promise.all([
+          verifyJwt(req, res, next),
+          verifyPermission(req, res, next),
+        ]);
+      }
 
       const registerUseCase = makeUserRegisterUseCase();
 
@@ -52,11 +62,11 @@ class UserController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
-      const { id } = req.params;
+      const { userId } = req.params;
 
       const deleteUseCase = makeUserDeleteUseCase();
 
-      await deleteUseCase.execute(id);
+      await deleteUseCase.execute(userId);
 
       res.status(200).json({
         message: 'Usuário deletado com sucesso!',

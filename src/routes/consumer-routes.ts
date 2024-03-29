@@ -2,20 +2,21 @@ import { Router } from 'express';
 
 import ConsumerController from '@http/controllers/consumer-controller';
 import { verifyJwt } from '@http/middlewares/verify-jwt';
+import { verifyPermission } from '@http/middlewares/verify-permission';
 
 const consumerRouter = Router();
 
 consumerRouter
   .route('/')
   .post([verifyJwt], ConsumerController.register)
-  .get([verifyJwt], ConsumerController.list);
+  .get([verifyPermission], ConsumerController.list);
 consumerRouter
   .route('/search')
-  .get([verifyJwt], ConsumerController.searchByName);
+  .get([verifyPermission], ConsumerController.searchByName);
 consumerRouter
-  .route('/:id')
-  .delete([verifyJwt], ConsumerController.delete)
-  .get([verifyJwt], ConsumerController.getProfile)
-  .patch([verifyJwt], ConsumerController.save);
+  .route('/:consumerId')
+  .delete([verifyPermission], ConsumerController.delete)
+  .get([verifyPermission], ConsumerController.getProfile)
+  .patch([verifyPermission], ConsumerController.save);
 
 export default consumerRouter;
