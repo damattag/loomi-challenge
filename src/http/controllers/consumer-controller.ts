@@ -18,7 +18,12 @@ class ConsumerController {
 
       const registerUseCase = makeConsumerRegisterUseCase();
 
-      await registerUseCase.execute(data);
+      const lowerCaseName = data.fullName.toLowerCase();
+
+      await registerUseCase.execute({
+        ...data,
+        fullName: lowerCaseName,
+      });
 
       res.status(201).json({
         message: 'Cliente criado com sucesso!',
@@ -108,8 +113,11 @@ class ConsumerController {
 
       const updateUseCase = makeConsumerUpdateUseCase();
 
+      const lowerCaseName = data.fullName?.toLowerCase();
+
       await updateUseCase.execute({
         ...data,
+        fullName: lowerCaseName,
         id,
       });
 

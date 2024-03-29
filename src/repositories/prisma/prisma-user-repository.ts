@@ -1,5 +1,7 @@
-import prisma from '@database';
 import { Prisma, User } from '@prisma/client';
+
+import prisma from '@database';
+
 import { IUserRepository } from '@repositories/user-repository';
 
 export class PrismaUserRepository implements IUserRepository {

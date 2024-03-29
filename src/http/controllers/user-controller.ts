@@ -5,8 +5,8 @@ import { UserRegisterSchema } from '@DTOs/user/register';
 import { VerifyEmailSchema } from '@DTOs/user/verify-email';
 import { AuthenticateSchema } from '@DTOs/user/authenticate';
 
-import { makeUserVerifyEmailUseCase } from '@use-cases/factories/user/make-verify-email-use-case';
-import { makeUserRegisterUseCase } from '@use-cases/factories/user/make-register-use-case';
+import { makeUserVerifyEmailUseCase } from '@use-cases/factories/user/make-user-verify-email-use-case';
+import { makeUserRegisterUseCase } from '@use-cases/factories/user/make-user-register-use-case';
 import { makeUserDeleteUseCase } from '@use-cases/factories/user/make-delete-use-case';
 import { makeUserAuthenticateUseCase } from '@use-cases/factories/user/make-authenticate-use-case';
 

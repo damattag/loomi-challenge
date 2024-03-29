@@ -3,8 +3,8 @@ import { compare } from 'bcryptjs';
 
 import { IUserRepository } from '@repositories/user-repository';
 
-import { NotFoundError } from '../errors/not-found-error';
-import { InvalidTokenError } from '../errors/invalid-token-error';
+import { NotFoundError } from '@errors/not-found-error';
+import { InvalidTokenError } from '@errors/invalid-token-error';
 
 interface VerifyEmailUseCaseRequest {
   email: string;
@@ -24,7 +24,7 @@ export class VerifyEmailUseCase {
     const user = await this.userRepository.findByEmail(data.email);
 
     if (!user) {
-      throw new NotFoundError();
+      throw new NotFoundError('Usuário não encontrado');
     }
 
     if (!user.emailVerificationToken || !user.emailTokenExpiry) {

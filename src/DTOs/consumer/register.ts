@@ -6,7 +6,7 @@ export const ConsumerRegisterSchema = z.object({
       invalid_type_error: 'O id do usuário deve ser uma string.',
       required_error: 'O id do usuário é obrigatório.',
     })
-    .cuid({ message: 'O id do usuário deve ser um CUID válido.' }),
+    .uuid({ message: 'O id do usuário deve ser um UUID válido.' }),
   fullName: z.string({
     invalid_type_error: 'O nome completo deve ser uma string.',
     required_error: 'O nome completo é obrigatório.',

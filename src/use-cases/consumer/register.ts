@@ -1,7 +1,7 @@
 import { Consumer } from '@prisma/client';
 
 import { IConsumerRepository } from '@repositories/consumer-repository';
-import { ConsumerAlreadyExistsError } from '../errors/consumer-already-exists-error';
+import { ConsumerAlreadyExistsError } from '@errors/consumer-already-exists-error';
 
 interface RegisterConsumerUseCaseRequest {
   fullName: string;
