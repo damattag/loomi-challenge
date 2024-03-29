@@ -1,3 +1,7 @@
+import { consumerSchema } from './schemas/consumer-schema';
+import { productSchema } from './schemas/product-schema';
+import { userSchema } from './schemas/user-schema';
+
 export default {
   openapi: '3.0.0',
   info: {
@@ -16,7 +20,11 @@ export default {
   paths: {},
 
   components: {
-    schemas: {},
+    schemas: {
+      ...userSchema,
+      ...consumerSchema,
+      ...productSchema,
+    },
 
     securitySchemes: {
       bearerAuth: {
