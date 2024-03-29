@@ -28,9 +28,9 @@ export default {
 
   components: {
     schemas: {
-      ...userSchema,
-      ...consumerSchema,
-      ...productSchema,
+      User: userSchema,
+      Consumer: consumerSchema,
+      Product: productSchema,
     },
 
     securitySchemes: {
