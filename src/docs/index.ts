@@ -1,3 +1,6 @@
+import { consumerPaths } from './paths/consumer-paths';
+import { productPaths } from './paths/product-paths';
+import { userPaths } from './paths/user-paths';
 import { consumerSchema } from './schemas/consumer-schema';
 import { productSchema } from './schemas/product-schema';
 import { userSchema } from './schemas/user-schema';
@@ -17,7 +20,11 @@ export default {
     },
   ],
 
-  paths: {},
+  paths: {
+    ...userPaths,
+    ...consumerPaths,
+    ...productPaths,
+  },
 
   components: {
     schemas: {
