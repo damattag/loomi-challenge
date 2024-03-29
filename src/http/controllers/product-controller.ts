@@ -17,7 +17,14 @@ class ProductController {
 
       const registerUseCase = makeProductRegisterUseCase();
 
-      await registerUseCase.execute(data);
+      const lowerCaseName = data.name.toLowerCase();
+      const lowerCaseDescription = data.description.toLowerCase();
+
+      await registerUseCase.execute({
+        ...data,
+        name: lowerCaseName,
+        description: lowerCaseDescription,
+      });
 
       res.status(201).json({
         message: 'Produto criado com sucesso!',
@@ -88,8 +95,13 @@ class ProductController {
 
       const updateUseCase = makeProductUpdateUseCase();
 
+      const lowerCaseName = data.name?.toLowerCase();
+      const lowerCaseDescription = data.description?.toLowerCase();
+
       await updateUseCase.execute({
         ...data,
+        description: lowerCaseDescription,
+        name: lowerCaseName,
         id,
       });
 
