@@ -88,6 +88,11 @@ export const userPaths = {
     delete: {
       tags: ['User'],
       summary: 'Delete user',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       parameters: [
         {
           in: 'path',

@@ -5,6 +5,11 @@ export const productPaths = {
     post: {
       tags: ['Product'],
       summary: 'Create a product',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       requestBody: {
         required: true,
         content: {
@@ -29,6 +34,11 @@ export const productPaths = {
     get: {
       tags: ['Product'],
       summary: 'List products',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       parameters: [
         {
           in: 'query',
@@ -73,6 +83,11 @@ export const productPaths = {
     delete: {
       tags: ['Product'],
       summary: 'Delete a product',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       parameters: [
         {
           in: 'path',
@@ -91,6 +106,11 @@ export const productPaths = {
     get: {
       tags: ['Product'],
       summary: 'Get a product',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       parameters: [
         {
           in: 'path',
@@ -109,6 +129,11 @@ export const productPaths = {
     patch: {
       tags: ['Product'],
       summary: 'Update a product',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       parameters: [
         {
           in: 'path',

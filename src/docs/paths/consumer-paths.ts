@@ -5,6 +5,11 @@ export const consumerPaths = {
     post: {
       tags: ['Consumer'],
       summary: 'Create a consumer',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       requestBody: {
         required: true,
         content: {
@@ -29,6 +34,11 @@ export const consumerPaths = {
     get: {
       tags: ['Consumer'],
       summary: 'List consumers',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       responses: {
         ...consumerResponses.list,
       },
@@ -39,6 +49,11 @@ export const consumerPaths = {
     get: {
       tags: ['Consumer'],
       summary: 'Search consumer by name',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       parameters: [
         {
           in: 'query',
@@ -59,6 +74,11 @@ export const consumerPaths = {
     get: {
       tags: ['Consumer'],
       summary: 'Get consumer profile',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       parameters: [
         {
           in: 'path',
@@ -77,6 +97,11 @@ export const consumerPaths = {
     delete: {
       tags: ['Consumer'],
       summary: 'Delete a consumer',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       parameters: [
         {
           in: 'path',
@@ -95,6 +120,11 @@ export const consumerPaths = {
     patch: {
       tags: ['Consumer'],
       summary: 'Update a consumer',
+      security: [
+        {
+          bearerAuth: [],
+        },
+      ],
       parameters: [
         {
           in: 'path',
