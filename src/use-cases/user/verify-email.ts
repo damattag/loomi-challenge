@@ -3,8 +3,8 @@ import { compare } from 'bcryptjs';
 
 import { IUserRepository } from '@repositories/user-repository';
 
-import { NotFoundError } from '@use-cases/errors/not-found-error';
-import { InvalidTokenError } from '@use-cases/errors/invalid-token-error';
+import { NotFoundError } from '@errors/not-found-error';
+import { InvalidTokenError } from '@errors/invalid-token-error';
 
 interface VerifyEmailUseCaseRequest {
   email: string;

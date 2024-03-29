@@ -1,9 +1,9 @@
 import { PrismaProductRepository } from '@repositories/prisma/prisma-product-repository';
 import { GetProductUseCase } from '@use-cases/product/get-product';
 
-export function makeProductGetProfileUseCase() {
+export function makeGetProductUseCase() {
   const productsRepository = new PrismaProductRepository();
-  const getProductProfileUseCase = new GetProductUseCase(productsRepository);
+  const getProductUseCase = new GetProductUseCase(productsRepository);
 
-  return getProductProfileUseCase;
+  return getProductUseCase;
 }

@@ -1,7 +1,7 @@
 import { Product } from '@prisma/client';
 
 import { IProductRepository } from '@repositories/product-repository';
-import { NotFoundError } from '@use-cases/errors/not-found-error';
+import { NotFoundError } from '@errors/not-found-error';
 
 interface GetProductUseCaseRequest {
   id: string;

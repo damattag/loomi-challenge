@@ -3,10 +3,10 @@ import { Product } from '@prisma/client';
 import { IProductRepository } from '@repositories/product-repository';
 
 interface ListProductsUseCaseRequest {
-  name: string;
-  maxPrice: number;
-  minPrice: number;
-  stock: number;
+  name?: string;
+  maxPrice?: number;
+  minPrice?: number;
+  stock?: number;
 }
 
 interface ListProductsUseCaseResponse {
