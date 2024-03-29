@@ -2,7 +2,7 @@ import { Prisma, Product } from '@prisma/client';
 
 import prisma from '@database';
 
-import { IProductsRepository } from '@repositories/product-repository';
+import { IProductRepository } from '@repositories/product-repository';
 
 export interface ProductFilters {
   name?: string;
@@ -11,7 +11,7 @@ export interface ProductFilters {
   stock?: number;
 }
 
-export class PrismaProductRepository implements IProductsRepository {
+export class PrismaProductRepository implements IProductRepository {
   async findAll({
     name,
     maxPrice,

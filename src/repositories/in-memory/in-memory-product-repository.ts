@@ -2,10 +2,10 @@ import { Prisma, Product } from '@prisma/client';
 
 import { randomUUID } from 'node:crypto';
 
-import { IProductsRepository } from '@repositories/product-repository';
+import { IProductRepository } from '@repositories/product-repository';
 import { ProductFilters } from '@repositories/prisma/prisma-product-repository';
 
-export class InMemoryProductRepository implements IProductsRepository {
+export class InMemoryProductRepository implements IProductRepository {
   public items: Product[] = [];
 
   async findAll({
