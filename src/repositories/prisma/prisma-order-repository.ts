@@ -13,7 +13,7 @@ export interface OrderFilters {
   maxPrice?: Decimal;
 }
 
-export class OrderRepository implements IOrderRepository {
+export class PrismaOrderRepository implements IOrderRepository {
   async create(data: Prisma.OrderUncheckedCreateInput): Promise<Order> {
     const order = await prisma.order.create({ data });
 

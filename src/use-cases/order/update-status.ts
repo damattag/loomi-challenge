@@ -2,21 +2,21 @@ import { $Enums, Order } from '@prisma/client';
 
 import { IOrderRepository } from '@repositories/order-repository';
 
-interface UpdateOrderUseCaseRequest {
+interface UpdateStatusOrderUseCaseRequest {
   id: string;
   status: $Enums.OrderStatus;
 }
 
-interface UpdateOrderUseCaseResponse {
+interface UpdateStatusOrderUseCaseResponse {
   order: Order;
 }
 
-export class UpdateOrderUseCase {
+export class UpdateStatusOrderUseCase {
   constructor(private orderRepository: IOrderRepository) {}
 
   async execute(
-    data: UpdateOrderUseCaseRequest,
-  ): Promise<UpdateOrderUseCaseResponse> {
+    data: UpdateStatusOrderUseCaseRequest,
+  ): Promise<UpdateStatusOrderUseCaseResponse> {
     const order = await this.orderRepository.save(data.id, {
       status: data.status,
     });

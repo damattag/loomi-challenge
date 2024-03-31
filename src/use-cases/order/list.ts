@@ -7,7 +7,7 @@ interface ListOrderUseCaseResponse {
   orders: Order[];
 }
 
-export class ListOrderUseCase {
+export class ListOrdersUseCase {
   constructor(private orderRepository: IOrderRepository) {}
 
   async execute({

@@ -4,7 +4,7 @@ import prisma from '@database';
 
 import { IOrderItemRepository } from '@repositories/order-item-repository';
 
-export class OrderItemRepository implements IOrderItemRepository {
+export class PrismaOrderItemRepository implements IOrderItemRepository {
   async create(data: Prisma.OrderItemUncheckedCreateInput): Promise<OrderItem> {
     const orderItem = await prisma.orderItem.create({ data });
 
