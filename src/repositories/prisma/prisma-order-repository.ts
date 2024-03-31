@@ -57,7 +57,10 @@ export class OrderRepository implements IOrderRepository {
     id: string,
     data: Prisma.OrderUncheckedUpdateInput,
   ): Promise<Order> {
-    const order = await prisma.order.update({ where: { id }, data });
+    const order = await prisma.order.update({
+      where: { id },
+      data,
+    });
 
     return order;
   }

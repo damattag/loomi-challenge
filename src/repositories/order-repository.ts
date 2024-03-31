@@ -1,4 +1,4 @@
-import { Order, Prisma } from '@prisma/client';
+import { Order, OrderItem, Prisma } from '@prisma/client';
 import { OrderFilters } from './prisma/prisma-order-repository';
 
 export interface IOrderRepository {
