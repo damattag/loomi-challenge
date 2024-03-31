@@ -1,7 +1,12 @@
 import { consumerPaths } from './paths/consumer-paths';
+import { orderItemPaths } from './paths/order-item-paths';
+import { orderPaths } from './paths/order-paths';
 import { productPaths } from './paths/product-paths';
 import { userPaths } from './paths/user-paths';
+
 import { consumerSchema } from './schemas/consumer-schema';
+import { orderItemSchema } from './schemas/order-item-schema';
+import { orderSchema } from './schemas/order-schema';
 import { productSchema } from './schemas/product-schema';
 import { userSchema } from './schemas/user-schema';
 
@@ -24,6 +29,8 @@ export default {
     ...userPaths,
     ...consumerPaths,
     ...productPaths,
+    ...orderPaths,
+    ...orderItemPaths,
   },
 
   components: {
@@ -31,6 +38,8 @@ export default {
       User: userSchema,
       Consumer: consumerSchema,
       Product: productSchema,
+      Order: orderSchema,
+      OrderItem: orderItemSchema,
     },
 
     securitySchemes: {

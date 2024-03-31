@@ -13,6 +13,6 @@ orderRouter.route('/').post(OrderController.register).get(OrderController.list);
 orderRouter
   .route('/:orderId')
   .get(OrderController.getOrder)
-  .patch(OrderController.update);
+  .patch(OrderController.save);
 
 export default orderRouter;

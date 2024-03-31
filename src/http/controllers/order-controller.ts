@@ -76,7 +76,7 @@ class OrderController {
     }
   }
 
-  async update(req: Request, res: Response, next: NextFunction) {
+  async save(req: Request, res: Response, next: NextFunction) {
     try {
       const { orderId } = req.params;
       const { status } = OrderUpdateSchema.parse(req.body);

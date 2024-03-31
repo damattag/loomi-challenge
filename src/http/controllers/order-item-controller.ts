@@ -52,7 +52,7 @@ class OrderItemController {
     }
   }
 
-  async update(req: Request, res: Response, next: NextFunction) {
+  async save(req: Request, res: Response, next: NextFunction) {
     try {
       const { orderItemId } = req.params;
       const { quantity, unitPrice } = OrderItemUpdateSchema.parse(req.body);

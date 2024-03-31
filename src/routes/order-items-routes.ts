@@ -14,7 +14,7 @@ orderItemRouter.route('/:orderId').get(OrderItemController.list);
 
 orderItemRouter
   .route('/:orderItemId')
-  .get(OrderItemController.delete)
-  .patch(OrderItemController.update);
+  .delete(OrderItemController.delete)
+  .patch(OrderItemController.save);
 
 export default orderItemRouter;
