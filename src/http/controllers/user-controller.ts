@@ -35,7 +35,7 @@ class UserController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -56,7 +56,7 @@ class UserController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -74,7 +74,7 @@ class UserController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -117,7 +117,7 @@ class UserController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 }

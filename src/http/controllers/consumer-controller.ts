@@ -31,7 +31,7 @@ class ConsumerController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -56,7 +56,7 @@ class ConsumerController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -75,7 +75,7 @@ class ConsumerController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -102,7 +102,7 @@ class ConsumerController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -127,7 +127,7 @@ class ConsumerController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -145,7 +145,7 @@ class ConsumerController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 }

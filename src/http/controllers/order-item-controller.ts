@@ -29,7 +29,7 @@ class OrderItemController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -48,7 +48,7 @@ class OrderItemController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -71,7 +71,7 @@ class OrderItemController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -89,7 +89,7 @@ class OrderItemController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 }

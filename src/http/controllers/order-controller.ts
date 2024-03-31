@@ -1,14 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
-import { Prisma } from '@prisma/client';
 
 import { OrderRegisterSchema } from '@DTOs/order/register';
 import { OrderSearchByFiltersSchema } from '@DTOs/order/search-by-filters';
+import { OrderUpdateSchema } from '@DTOs/order/update';
 
 import { makeRegisterOrderUseCase } from '@use-cases/factories/order/make-register-use-case';
 import { makeListOrdersUseCase } from '@use-cases/factories/order/make-list-use-case';
 import { makeGetOrderUseCase } from '@use-cases/factories/order/make-get-order-use-case';
 import { makeUpdateOrderUseCase } from '@use-cases/factories/order/make-update-status-use-case';
-import { OrderUpdateSchema } from '@DTOs/order/update';
 
 class OrderController {
   async register(req: Request, res: Response, next: NextFunction) {
@@ -25,7 +24,7 @@ class OrderController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -52,7 +51,7 @@ class OrderController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -73,7 +72,7 @@ class OrderController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -92,7 +91,7 @@ class OrderController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 }

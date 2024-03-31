@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import ConsumerController from '@http/controllers/consumer-controller';
+
 import { verifyJwt } from '@http/middlewares/verify-jwt';
 import { verifyPermission } from '@http/middlewares/verify-permission';
 

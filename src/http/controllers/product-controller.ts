@@ -32,7 +32,7 @@ class ProductController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -65,7 +65,7 @@ class ProductController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -84,7 +84,7 @@ class ProductController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -111,7 +111,7 @@ class ProductController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 
@@ -129,7 +129,7 @@ class ProductController {
 
       return next();
     } catch (error) {
-      next(error);
+      return next(error);
     }
   }
 }
