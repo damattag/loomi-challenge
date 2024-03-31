@@ -1,16 +1,17 @@
-import { ForbiddenError } from '@errors/forbidden-error';
-import { UnauthorizedError } from '@errors/unauthorized-error';
 import { OrderItem } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 
 import { IOrderItemRepository } from '@repositories/order-item-repository';
 import { IOrderRepository } from '@repositories/order-repository';
 
+import { ForbiddenError } from '@errors/forbidden-error';
+import { NotFoundError } from '@errors/not-found-error';
+
 interface RegisterOrderItemUseCaseRequest {
   orderId: string;
   productId: string;
   quantity: number;
-  unitPrice: Decimal;
+  unitPrice: Decimal | number;
 }
 
 interface RegisterOrderItemUseCaseResponse {
@@ -29,7 +30,7 @@ export class RegisterOrderItemUseCase {
     const order = await this.orderRepository.findById(data.orderId);
 
     if (!order) {
-      throw new Error('Pedido não encontrado');
+      throw new NotFoundError('Pedido não encontrado');
     }
 
     if (order.status !== 'OPENED') {

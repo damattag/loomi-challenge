@@ -1,26 +1,30 @@
 import { Request, Response, NextFunction } from 'express';
-import { Prisma } from '@prisma/client';
 
-import { OrderRegisterSchema } from '@DTOs/order/register';
-import { OrderSearchByFiltersSchema } from '@DTOs/order/search-by-filters';
+import { OrderItemRegisterSchema } from '@DTOs/order-item/register';
+import { OrderItemUpdateSchema } from '@DTOs/order-item/update';
 
-import { makeRegisterOrderUseCase } from '@use-cases/factories/order/make-register-use-case';
-import { makeListOrdersUseCase } from '@use-cases/factories/order/make-list-use-case';
-import { makeGetOrderUseCase } from '@use-cases/factories/order/make-get-order-use-case';
-import { makeUpdateOrderUseCase } from '@use-cases/factories/order/make-update-status-use-case';
-import { OrderUpdateSchema } from '@DTOs/order/update';
+import { makeRegisterOrderItemUseCase } from '@use-cases/factories/order-item/make-register-use-case';
+import { makeListOrderItemUseCase } from '@use-cases/factories/order-item/make-list-use-case';
+import { makeUpdateOrderItemUseCase } from '@use-cases/factories/order-item/make-update-use-case';
+import { makeDeleteOrderItemUseCase } from '@use-cases/factories/order-item/make-delete-use-case';
 
 class OrderItemController {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
-      const { consumerId } = OrderRegisterSchema.parse(req.body);
+      const { orderId, productId, quantity, unitPrice } =
+        OrderItemRegisterSchema.parse(req.body);
 
-      const registerUseCase = makeRegisterOrderUseCase();
+      const registerUseCase = makeRegisterOrderItemUseCase();
 
-      await registerUseCase.execute({ consumerId });
+      await registerUseCase.execute({
+        orderId,
+        productId,
+        quantity,
+        unitPrice,
+      });
 
       res.status(201).json({
-        message: 'Pedido criado com sucesso!',
+        message: 'Item adiconado ao pedido com sucesso!',
       });
 
       return next();
@@ -31,6 +35,17 @@ class OrderItemController {
 
   async list(req: Request, res: Response, next: NextFunction) {
     try {
+      const { orderId } = req.params;
+
+      const listUseCase = makeListOrderItemUseCase();
+
+      const { orderItems } = await listUseCase.execute({ orderId });
+
+      res.status(200).json({
+        data: orderItems,
+        message: 'Itens do pedido listados com sucesso!',
+      });
+
       return next();
     } catch (error) {
       next(error);
@@ -39,6 +54,21 @@ class OrderItemController {
 
   async update(req: Request, res: Response, next: NextFunction) {
     try {
+      const { orderItemId } = req.params;
+      const { quantity, unitPrice } = OrderItemUpdateSchema.parse(req.body);
+
+      const updateUseCase = makeUpdateOrderItemUseCase();
+
+      await updateUseCase.execute({
+        id: orderItemId,
+        quantity,
+        unitPrice,
+      });
+
+      res.status(200).json({
+        message: 'Item do pedido atualizado com sucesso!',
+      });
+
       return next();
     } catch (error) {
       next(error);
@@ -47,6 +77,16 @@ class OrderItemController {
 
   async delete(req: Request, res: Response, next: NextFunction) {
     try {
+      const { orderItemId } = req.params;
+
+      const deleteUseCase = makeDeleteOrderItemUseCase();
+
+      await deleteUseCase.execute({ id: orderItemId });
+
+      res.status(200).json({
+        message: 'Item do pedido deletado com sucesso!',
+      });
+
       return next();
     } catch (error) {
       next(error);

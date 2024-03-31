@@ -11,7 +11,7 @@ import { ForbiddenError } from '@errors/forbidden-error';
 interface UpdateOrderItemUseCaseRequest {
   id: string;
   quantity?: number;
-  unitPrice?: Decimal;
+  unitPrice?: Decimal | number;
 }
 
 interface UpdateOrderItemUseCaseResponse {
