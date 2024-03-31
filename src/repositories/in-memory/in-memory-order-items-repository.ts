@@ -64,4 +64,18 @@ export class InMemoryOrderItemsRepository implements IOrderItemRepository {
 
     return updatedOrderItem;
   }
+
+  async delete(id: string): Promise<OrderItem> {
+    const orderItemIndex = this.orderItems.findIndex((item) => item.id === id);
+
+    if (orderItemIndex < 0) {
+      throw new Error('Order item not found');
+    }
+
+    const orderItem = this.orderItems[orderItemIndex];
+
+    this.orderItems.splice(orderItemIndex, 1);
+
+    return orderItem;
+  }
 }

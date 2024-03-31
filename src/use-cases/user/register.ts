@@ -7,7 +7,7 @@ import { IUserRepository } from '@repositories/user-repository';
 import mailTemplate from '@utils/mail-template';
 import { MailServer } from '@utils/mail-handler';
 
-import { UserAlreadyExistsError } from '@errors/user-already-exists-error';
+import { AlreadyExistsError } from '@errors/already-exists-error';
 import { SendMailError } from '@errors/send-mail-error';
 
 interface RegisterUseCaseRequest {
@@ -32,7 +32,7 @@ export class RegisterUseCase {
     const userAlreadyExists = await this.userRepository.findByEmail(data.email);
 
     if (userAlreadyExists) {
-      throw new UserAlreadyExistsError();
+      throw new AlreadyExistsError('Email já cadastrado');
     }
 
     const token = Math.floor(Math.random() * 999999).toString();

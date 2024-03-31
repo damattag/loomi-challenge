@@ -5,6 +5,7 @@ export interface IOrderItemRepository {
     orderItem: Prisma.OrderItemUncheckedCreateInput,
   ) => Promise<OrderItem>;
   findById: (id: string) => Promise<OrderItem | null>;
+  delete: (id: string) => Promise<OrderItem>;
   findByOrderId: (orderId: string) => Promise<OrderItem[]>;
   save: (
     id: string,

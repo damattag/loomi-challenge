@@ -36,4 +36,10 @@ export class OrderItemRepository implements IOrderItemRepository {
 
     return orderItem;
   }
+
+  async delete(id: string): Promise<OrderItem> {
+    const orderItem = await prisma.orderItem.delete({ where: { id } });
+
+    return orderItem;
+  }
 }
