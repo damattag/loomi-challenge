@@ -8,11 +8,13 @@ export class InMemoryOrderRepository implements IOrderRepository {
   public orders: Order[] = [];
 
   async create(data: Prisma.OrderUncheckedCreateInput): Promise<Order> {
+    const total = new Prisma.Decimal(Number(data.total || 0));
+
     const order = {
       id: randomUUID() as string,
       consumerId: data.consumerId,
       status: data.status || 'OPENED',
-      total: new Prisma.Decimal(String(data.total)),
+      total,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -27,6 +29,7 @@ export class InMemoryOrderRepository implements IOrderRepository {
 
     return order;
   }
+
   async findAll(filters: OrderFilters): Promise<Order[]> {
     return this.orders.filter((order) => {
       if (filters.consumerId && order.consumerId !== filters.consumerId) {
@@ -52,6 +55,7 @@ export class InMemoryOrderRepository implements IOrderRepository {
       return true;
     });
   }
+
   async save(
     id: string,
     data: Prisma.OrderUncheckedUpdateInput,
@@ -64,11 +68,13 @@ export class InMemoryOrderRepository implements IOrderRepository {
 
     const order = this.orders[orderIndex];
 
+    const total = new Prisma.Decimal(Number(data.total) || order.total);
+
     const updatedOrder = {
       id: order.id,
       consumerId: order.consumerId,
       status: (data.status as $Enums.OrderStatus | undefined) || order.status,
-      total: new Prisma.Decimal(String(data.total || order.total)),
+      total,
       createdAt: order.createdAt,
       updatedAt: new Date(),
     };
