@@ -22,10 +22,6 @@ export async function verifyJwt(
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    if (decoded === typeof 'string') {
-      throw new UnauthorizedError();
-    }
-
     const { sub, role } = decoded as JwtPayload;
 
     if (!sub || !role) {
@@ -36,6 +32,10 @@ export async function verifyJwt(
 
     if (!user || user.role !== role || user.id !== sub) {
       throw new UnauthorizedError();
+    }
+
+    if (!user.emailVerified) {
+      throw new UnauthorizedError('E-mail não verificado');
     }
 
     res.locals = {

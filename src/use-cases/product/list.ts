@@ -14,6 +14,7 @@ interface ListProductsUseCaseResponse {
 }
 
 export class ListProductsUseCase {
+  // eslint-disable-next-line no-unused-vars
   constructor(private productRepository: IProductRepository) {}
 
   async execute({

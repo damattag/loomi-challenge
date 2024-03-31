@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { User } from '@prisma/client';
 
 import { IUserRepository } from '@repositories/user-repository';

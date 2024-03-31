@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { User } from '@prisma/client';
 import { compare } from 'bcryptjs';
 

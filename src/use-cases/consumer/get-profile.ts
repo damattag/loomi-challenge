@@ -9,6 +9,7 @@ interface GetProfileConsumerUseCaseResponse {
 }
 
 export class GetProfileConsumerUseCase {
+  // eslint-disable-next-line no-unused-vars
   constructor(private consumerRepository: IConsumerRepository) {}
 
   async execute(id: string): Promise<GetProfileConsumerUseCaseResponse> {

@@ -2,14 +2,15 @@ import { Consumer } from '@prisma/client';
 
 import { IConsumerRepository } from '@repositories/consumer-repository';
 
-interface GetProfileConsumerUseCaseResponse {
+interface ListConsumerUseCaseResponse {
   consumers: Consumer[];
 }
 
-export class GetProfileConsumerUseCase {
+export class ListConsumerUseCase {
+  // eslint-disable-next-line no-unused-vars
   constructor(private consumerRepository: IConsumerRepository) {}
 
-  async execute(): Promise<GetProfileConsumerUseCaseResponse> {
+  async execute(): Promise<ListConsumerUseCaseResponse> {
     const consumers = await this.consumerRepository.findAll();
 
     return { consumers };

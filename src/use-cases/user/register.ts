@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { $Enums, User } from '@prisma/client';
 import { hash } from 'bcryptjs';
 
