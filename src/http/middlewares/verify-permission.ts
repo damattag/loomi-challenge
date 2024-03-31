@@ -18,8 +18,16 @@ export async function verifyPermission(
     const { sub, role } = res.locals;
 
     if (role !== 'ADMIN') {
+      if (!userId && !consumerId) {
+        throw new ForbiddenError(
+          'Usuário não tem permissão para acessar este recurso.',
+        );
+      }
+
       if (userId && sub !== userId) {
-        throw new ForbiddenError();
+        throw new ForbiddenError(
+          'Usuário não tem permissão para acessar este recurso.',
+        );
       }
 
       if (consumerId) {
@@ -27,12 +35,10 @@ export async function verifyPermission(
         const consumer = await consumerRepository.findById(consumerId);
 
         if (!consumer || consumer.userId !== sub) {
-          throw new ForbiddenError();
+          throw new ForbiddenError(
+            'Usuário não tem permissão para acessar este recurso.',
+          );
         }
-      }
-
-      if (!userId && !consumerId) {
-        throw new ForbiddenError();
       }
     }
 
