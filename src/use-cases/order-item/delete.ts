@@ -1,3 +1,4 @@
+import { ForbiddenError } from '@errors/forbidden-error';
 import { OrderItem } from '@prisma/client';
 
 import { IOrderItemRepository } from '@repositories/order-item-repository';
@@ -20,13 +21,33 @@ export class DeleteOrderItemUseCase {
   async execute({
     id,
   }: DeleteOrderItemUseCaseRequest): Promise<DeleteOrderItemUseCaseResponse> {
-    const orderItem = await this.orderItemRepository.delete(id);
+    const orderItem = await this.orderItemRepository.findById(id);
 
-    await this.orderRepository.save(orderItem.orderId, {
-      total: {
-        decrement: orderItem.subtotal,
-      },
-    });
+    if (!orderItem) {
+      throw new Error('Item de pedido não encontrado');
+    }
+
+    const order = await this.orderRepository.findById(orderItem.orderId);
+
+    if (!order) {
+      throw new Error('Pedido não encontrado');
+    }
+
+    if (order.status !== 'OPENED') {
+      throw new ForbiddenError(
+        'Não é possível deletar um item de pedido fechado',
+      );
+    }
+
+    await Promise.all([
+      this.orderItemRepository.delete(id),
+
+      this.orderRepository.save(orderItem.orderId, {
+        total: {
+          decrement: orderItem.subtotal,
+        },
+      }),
+    ]);
 
     return { orderItem };
   }

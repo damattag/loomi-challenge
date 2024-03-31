@@ -1,3 +1,5 @@
+import { ForbiddenError } from '@errors/forbidden-error';
+import { UnauthorizedError } from '@errors/unauthorized-error';
 import { OrderItem } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 
@@ -24,6 +26,17 @@ export class RegisterOrderItemUseCase {
   async execute(
     data: RegisterOrderItemUseCaseRequest,
   ): Promise<RegisterOrderItemUseCaseResponse> {
+    const order = await this.orderRepository.findById(data.orderId);
+
+    if (!order) {
+      throw new Error('Pedido não encontrado');
+    }
+
+    if (order.status !== 'OPENED') {
+      throw new ForbiddenError(
+        'Não é possível adicionar um item a um pedido fechado',
+      );
+    }
     const subtotal = Number(data.unitPrice) * data.quantity;
 
     const orderItem = await this.orderItemRepository.create({
