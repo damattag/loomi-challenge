@@ -1,5 +1,5 @@
 export class ForbiddenError extends Error {
-  constructor() {
-    super('Acesso negado');
+  constructor(message: string) {
+    super(message);
   }
 }

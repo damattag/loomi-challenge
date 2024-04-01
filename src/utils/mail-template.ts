@@ -8,7 +8,7 @@ export default (name: string, subjectText: string, type: 'emailVerify') => {
     <body>
       <div 
         style="
-          width: 100%; 
+          width: 80%; 
           height: 100%; 
           background-color: #FFFFFF; 
           padding: 20px;

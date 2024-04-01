@@ -2,8 +2,7 @@ import { beforeEach, expect, describe, it } from 'vitest';
 
 import { InMemoryConsumerRepository } from '@repositories/in-memory/in-memory-consumer-repository';
 
-import { NotFoundError } from '@errors/not-found-error';
-import { ConsumerAlreadyExistsError } from '@errors/consumer-already-exists-error';
+import { AlreadyExistsError } from '@errors/already-exists-error';
 
 import { createUser } from '@utils/test/create-user';
 
@@ -49,6 +48,6 @@ describe('Register Use Case', () => {
         contact: '99999999999',
         userId: user.id,
       }),
-    ).rejects.toThrow(ConsumerAlreadyExistsError);
+    ).rejects.toThrow(AlreadyExistsError);
   });
 });

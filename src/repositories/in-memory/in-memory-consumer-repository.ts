@@ -80,6 +80,8 @@ export class InMemoryConsumerRepository implements IConsumerRepository {
       updatedAt: new Date(),
     };
 
+    this.items[consumerIndex] = updatedConsumer;
+
     return updatedConsumer;
   }
 }

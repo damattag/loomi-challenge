@@ -3,7 +3,7 @@ import { compare } from 'bcryptjs';
 
 import { InMemoryUserRepository } from '@repositories/in-memory/in-memory-user-repository';
 
-import { UserAlreadyExistsError } from '@errors/user-already-exists-error';
+import { AlreadyExistsError } from '@errors/already-exists-error';
 
 import { RegisterUseCase } from './register';
 
@@ -54,6 +54,6 @@ describe('Register Use Case', () => {
         email,
         password: '123456',
       }),
-    ).rejects.toBeInstanceOf(UserAlreadyExistsError);
+    ).rejects.toBeInstanceOf(AlreadyExistsError);
   });
 });

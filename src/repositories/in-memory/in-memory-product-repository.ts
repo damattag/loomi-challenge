@@ -75,6 +75,8 @@ export class InMemoryProductRepository implements IProductRepository {
       updatedAt: new Date(),
     };
 
+    this.items[productIndex] = updatedProduct;
+
     return updatedProduct;
   }
 

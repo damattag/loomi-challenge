@@ -1,7 +1,7 @@
 import { Consumer } from '@prisma/client';
 
 import { IConsumerRepository } from '@repositories/consumer-repository';
-import { ConsumerAlreadyExistsError } from '@errors/consumer-already-exists-error';
+import { AlreadyExistsError } from '@errors/already-exists-error';
 
 interface RegisterConsumerUseCaseRequest {
   fullName: string;
@@ -26,7 +26,7 @@ export class RegisterConsumerUseCase {
     );
 
     if (consumerAlreadyExists) {
-      throw new ConsumerAlreadyExistsError();
+      throw new AlreadyExistsError('Cliente já existe');
     }
 
     const consumer = await this.consumerRepository.create(data);
