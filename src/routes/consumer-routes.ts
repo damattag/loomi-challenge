@@ -15,7 +15,7 @@ consumerRouter
   .route('/search')
   .get([verifyPermission], ConsumerController.searchByName);
 consumerRouter
-  .route('/:consumerId')
+  .route('/id/:consumerId')
   .delete([verifyPermission], ConsumerController.delete)
   .get([verifyPermission], ConsumerController.getProfile)
   .patch([verifyPermission], ConsumerController.save);
