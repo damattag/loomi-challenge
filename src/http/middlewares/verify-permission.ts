@@ -3,7 +3,10 @@ import { Request, Response, NextFunction } from 'express';
 import { ForbiddenError } from '@errors/forbidden-error';
 
 import { PrismaConsumerRepository } from '@repositories/prisma/prisma-consumer-repository';
-import { verifyJwt } from './verify-jwt';
+
+import { jwtVerification } from '@utils/jwt-verification';
+
+import { UnauthorizedError } from '@errors/unauthorized-error';
 
 export async function verifyPermission(
   req: Request,
@@ -13,9 +16,15 @@ export async function verifyPermission(
   try {
     const { userId, consumerId } = req.params;
 
-    await verifyJwt(req, res, next);
+    const authHeader = req.headers.authorization;
 
-    const { sub, role } = res.locals;
+    if (!authHeader) {
+      throw new UnauthorizedError();
+    }
+
+    const [, token] = authHeader.split(' ');
+
+    const { sub, role } = await jwtVerification(token);
 
     if (role !== 'ADMIN') {
       if (!userId && !consumerId) {

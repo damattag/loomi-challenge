@@ -10,7 +10,7 @@ const consumerRouter = Router();
 consumerRouter
   .route('/')
   .post([verifyJwt], ConsumerController.register)
-  .get([verifyPermission], ConsumerController.list);
+  .get([verifyJwt], ConsumerController.list);
 consumerRouter
   .route('/search')
   .get([verifyPermission], ConsumerController.searchByName);
