@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "orders" ADD COLUMN     "total" MONEY NOT NULL DEFAULT 0,
+ALTER COLUMN "status" SET DEFAULT 'OPENED';

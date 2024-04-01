@@ -1,18 +1,13 @@
-import { Prisma, Order, $Enums } from '@prisma/client';
+import { Prisma, Order, $Enums, OrderItem } from '@prisma/client';
 import { Decimal } from '@prisma/client/runtime/library';
 
 import prisma from '@database';
 
-import { IOrderRepository } from '@repositories/order-repository';
-
-export interface OrderFilters {
-  consumerId?: string;
-  minDate?: Date;
-  maxDate?: Date;
-  minPrice?: Decimal | number;
-  maxPrice?: Decimal | number;
-  status?: $Enums.OrderStatus;
-}
+import {
+  IOrderRepository,
+  OrderFilters,
+  OrderWithItems,
+} from '@repositories/order-repository';
 
 export class PrismaOrderRepository implements IOrderRepository {
   async create(data: Prisma.OrderUncheckedCreateInput): Promise<Order> {
@@ -21,8 +16,13 @@ export class PrismaOrderRepository implements IOrderRepository {
     return order;
   }
 
-  async findById(id: string): Promise<Order | null> {
-    const order = await prisma.order.findUnique({ where: { id } });
+  async findById(id: string): Promise<OrderWithItems | null> {
+    const order = await prisma.order.findUnique({
+      where: { id },
+      include: {
+        OrderItem: true,
+      },
+    });
 
     return order;
   }
@@ -46,7 +46,7 @@ export class PrismaOrderRepository implements IOrderRepository {
           gte: minPrice,
           lte: maxPrice,
         },
-        status: status || { not: 'OPENED' },
+        status,
       },
     });
 

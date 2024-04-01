@@ -11,8 +11,9 @@ import { makeDeleteOrderItemUseCase } from '@use-cases/factories/order-item/make
 class OrderItemController {
   async register(req: Request, res: Response, next: NextFunction) {
     try {
-      const { orderId, productId, quantity, unitPrice } =
-        OrderItemRegisterSchema.parse(req.body);
+      const { orderId, productId, quantity } = OrderItemRegisterSchema.parse(
+        req.body,
+      );
 
       const registerUseCase = makeRegisterOrderItemUseCase();
 
@@ -20,7 +21,6 @@ class OrderItemController {
         orderId,
         productId,
         quantity,
-        unitPrice,
       });
 
       res.status(201).json({
@@ -55,14 +55,13 @@ class OrderItemController {
   async save(req: Request, res: Response, next: NextFunction) {
     try {
       const { orderItemId } = req.params;
-      const { quantity, unitPrice } = OrderItemUpdateSchema.parse(req.body);
+      const { quantity } = OrderItemUpdateSchema.parse(req.body);
 
       const updateUseCase = makeUpdateOrderItemUseCase();
 
       await updateUseCase.execute({
         id: orderItemId,
         quantity,
-        unitPrice,
       });
 
       res.status(200).json({

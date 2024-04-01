@@ -21,8 +21,4 @@ export const OrderItemRegisterSchema = z.object({
     invalid_type_error: 'A quantidade deve ser um número.',
     required_error: 'A quantidade é obrigatória.',
   }),
-  unitPrice: z.number({
-    invalid_type_error: 'O preço unitário deve ser um número.',
-    required_error: 'O preço unitário é obrigatório.',
-  }),
 });

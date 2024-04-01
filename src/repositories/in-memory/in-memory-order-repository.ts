@@ -1,11 +1,11 @@
 import { $Enums, Order, Prisma } from '@prisma/client';
 import { randomUUID } from 'node:crypto';
 
-import { OrderFilters } from '@repositories/prisma/prisma-order-repository';
+import { OrderFilters, OrderWithItems } from '@repositories/order-repository';
 import { IOrderRepository } from '@repositories/order-repository';
 
 export class InMemoryOrderRepository implements IOrderRepository {
-  public orders: Order[] = [];
+  public orders: OrderWithItems[] = [];
 
   async create(data: Prisma.OrderUncheckedCreateInput): Promise<Order> {
     const total = new Prisma.Decimal(Number(data.total || 0));

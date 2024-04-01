@@ -1,8 +1,6 @@
 import { OrderItem, Prisma } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime/library';
 
 import { NotFoundError } from '@errors/not-found-error';
-import { UnauthorizedError } from '@errors/unauthorized-error';
 
 import { IOrderItemRepository } from '@repositories/order-item-repository';
 import { IOrderRepository } from '@repositories/order-repository';
@@ -11,7 +9,6 @@ import { ForbiddenError } from '@errors/forbidden-error';
 interface UpdateOrderItemUseCaseRequest {
   id: string;
   quantity?: number;
-  unitPrice?: Decimal | number;
 }
 
 interface UpdateOrderItemUseCaseResponse {
@@ -27,7 +24,6 @@ export class UpdateOrderItemUseCase {
   async execute({
     id,
     quantity,
-    unitPrice,
   }: UpdateOrderItemUseCaseRequest): Promise<UpdateOrderItemUseCaseResponse> {
     const orderItem = await this.orderItemRepository.findById(id);
 
@@ -47,13 +43,11 @@ export class UpdateOrderItemUseCase {
     }
 
     const subtotal = new Prisma.Decimal(
-      Number(unitPrice || orderItem.unitPrice) *
-        (quantity || orderItem.quantity),
+      Number(orderItem.unitPrice) * (quantity || orderItem.quantity),
     );
 
     const updatedOrderItem = await this.orderItemRepository.save(id, {
       quantity: quantity || orderItem.quantity,
-      unitPrice: unitPrice || orderItem.unitPrice,
       subtotal,
     });
 

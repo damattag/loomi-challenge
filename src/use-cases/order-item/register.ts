@@ -1,8 +1,8 @@
 import { OrderItem } from '@prisma/client';
-import { Decimal } from '@prisma/client/runtime/library';
 
 import { IOrderItemRepository } from '@repositories/order-item-repository';
 import { IOrderRepository } from '@repositories/order-repository';
+import { IProductRepository } from '@repositories/product-repository';
 
 import { ForbiddenError } from '@errors/forbidden-error';
 import { NotFoundError } from '@errors/not-found-error';
@@ -11,7 +11,6 @@ interface RegisterOrderItemUseCaseRequest {
   orderId: string;
   productId: string;
   quantity: number;
-  unitPrice: Decimal | number;
 }
 
 interface RegisterOrderItemUseCaseResponse {
@@ -22,6 +21,7 @@ export class RegisterOrderItemUseCase {
   constructor(
     private orderItemRepository: IOrderItemRepository,
     private orderRepository: IOrderRepository,
+    private productRepository: IProductRepository,
   ) {}
 
   async execute(
@@ -38,13 +38,24 @@ export class RegisterOrderItemUseCase {
         'Não é possível adicionar um item a um pedido fechado',
       );
     }
-    const subtotal = Number(data.unitPrice) * data.quantity;
+
+    const product = await this.productRepository.findById(data.productId);
+
+    if (!product) {
+      throw new NotFoundError('Produto não encontrado');
+    }
+
+    if (product.stock < data.quantity) {
+      throw new ForbiddenError('Estoque insuficiente');
+    }
+
+    const subtotal = Number(product.price) * data.quantity;
 
     const orderItem = await this.orderItemRepository.create({
       orderId: data.orderId,
       productId: data.productId,
       quantity: data.quantity,
-      unitPrice: data.unitPrice,
+      unitPrice: product.price,
       subtotal,
     });
 

@@ -1,5 +1,5 @@
 import { Order } from '@prisma/client';
-import { OrderFilters } from '@repositories/prisma/prisma-order-repository';
+import { OrderFilters } from '@repositories/order-repository';
 
 import { IOrderRepository } from '@repositories/order-repository';
 
@@ -16,6 +16,7 @@ export class ListOrdersUseCase {
     maxPrice,
     minDate,
     minPrice,
+    status,
   }: OrderFilters): Promise<ListOrderUseCaseResponse> {
     const orders = await this.orderRepository.findAll({
       consumerId,
@@ -23,6 +24,7 @@ export class ListOrdersUseCase {
       maxPrice,
       minDate,
       minPrice,
+      status,
     });
 
     return { orders };
