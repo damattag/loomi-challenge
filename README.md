@@ -38,3 +38,8 @@ pnpm migration
 ```
 
 7. Now the server should be running!
+
+8. For tests as admin, it is necessary to create the user in the database and change it manually directly in the database, which can be done through Prisma Studio, to do this run
+```
+pnpm studio
+```
