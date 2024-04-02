@@ -31,6 +31,14 @@ class SalesReportController {
       const listUseCase = makeListSalesReportsUseCase();
       const { salesReports } = await listUseCase.execute();
 
+      if (!salesReports.length) {
+        res.status(204).json({
+          message: 'Nenhum relatório de vendas foi criado',
+        });
+
+        return next();
+      }
+
       res.status(200).json({
         data: salesReports,
         message: 'Relatórios de vendas listados com sucesso!',

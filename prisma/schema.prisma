@@ -107,7 +107,7 @@ model OrderItem {
 model SalesReport {
   id       String  @id @default(uuid())
   period   String
-  total    Decimal
+  total    Decimal @db.Money
   products Int
   path     String
 

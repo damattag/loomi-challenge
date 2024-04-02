@@ -140,7 +140,7 @@ export const consumerPaths = {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/components/schemas/ConsumerUpdate',
+              $ref: '#/components/schemas/Consumer',
             },
             example: {
               fullName: 'Consumer name',
