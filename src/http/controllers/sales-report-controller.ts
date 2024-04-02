@@ -6,7 +6,7 @@ class SalesReportController {
   async generate(req: Request, res: Response, next: NextFunction) {
     try {
       const generateUseCase = makeSalesReportUseCase();
-      const data = await generateUseCase.execute({});
+      const data = await generateUseCase.execute();
 
       res.status(200).json({ data });
 
