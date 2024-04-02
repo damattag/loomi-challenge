@@ -16,7 +16,7 @@
     "lint": "eslint ./src --ext .ts",
     "lint:fix": "eslint ./src --ext .ts --fix",
     "test": "vitest run --dir ./src/use-cases",
-    "test:ci": "cross-env EMAIL=teste.damatta@gmail.com EMAIL_PASSWORD='bhyp tggt gkbf dpxc' vitest run --dir ./src/use-cases --ci"
+    "test:ci": "cross-env EMAIL=teste.damatta@gmail.com EMAIL_PASSWORD='bhyp tggt gkbf dpxc' vitest run --dir ./src/use-cases"
   },
   "keywords": [],
   "author": "",
