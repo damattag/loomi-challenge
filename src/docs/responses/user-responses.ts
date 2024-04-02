@@ -75,7 +75,7 @@ export const userResponses = {
       content: {
         'application/json': {
           schema: {
-            $ref: '#/components/schemas/user',
+            $ref: '#/components/schemas/User',
             accessToken: {
               type: 'string',
             },

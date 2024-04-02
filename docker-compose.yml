@@ -13,6 +13,7 @@ services:
     volumes:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
+      - sales_reports:/home/node/app/sales-reports
     command: pnpm run dev
     depends_on:
       - db
@@ -35,6 +36,7 @@ services:
 volumes:
   pgdata:
   node_modules:
+  sales_reports:
 
     # Documentação usada para a construção desse arquivo
     # https://www.digitalocean.com/community/tutorials/containerizing-a-node-js-application-for-development-with-docker-compose-pt

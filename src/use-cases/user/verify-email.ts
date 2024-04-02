@@ -35,7 +35,7 @@ export class VerifyEmailUseCase {
       throw new InvalidTokenError();
     }
 
-    const isTokenValid = compare(data.token, user.emailVerificationToken);
+    const isTokenValid = await compare(data.token, user.emailVerificationToken);
 
     if (!isTokenValid) {
       throw new InvalidTokenError();

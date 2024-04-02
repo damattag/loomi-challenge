@@ -9,6 +9,7 @@ import { makeUserVerifyEmailUseCase } from '@use-cases/factories/user/make-user-
 import { makeUserRegisterUseCase } from '@use-cases/factories/user/make-user-register-use-case';
 import { makeUserDeleteUseCase } from '@use-cases/factories/user/make-delete-use-case';
 import { makeUserAuthenticateUseCase } from '@use-cases/factories/user/make-authenticate-use-case';
+import { verifyPermission } from '@http/middlewares/verify-permission';
 
 class UserController {
   async register(req: Request, res: Response, next: NextFunction) {

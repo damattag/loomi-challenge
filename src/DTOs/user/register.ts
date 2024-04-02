@@ -21,9 +21,4 @@ export const UserRegisterSchema = z.object({
     .min(6, {
       message: 'A senha precisa ter no mínimo 6 caracteres',
     }),
-  role: z
-    .enum(['CONSUMER', 'ADMIN'], {
-      invalid_type_error: 'O papel precisa ser CONSUMER ou ADMIN',
-    })
-    .default('CONSUMER'),
 });

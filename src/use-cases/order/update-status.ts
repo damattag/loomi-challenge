@@ -39,6 +39,7 @@ export class UpdateStatusOrderUseCase {
 
     const updatedOrder = await this.orderRepository.save(data.id, {
       status: data.status,
+      closedAt: new Date(),
     });
 
     return { order: updatedOrder };

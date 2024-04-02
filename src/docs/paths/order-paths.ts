@@ -141,7 +141,7 @@ export const orderPaths = {
         content: {
           'application/json': {
             schema: {
-              $ref: '#/components/schemas/OrderUpdate',
+              $ref: '#/components/schemas/Order',
             },
           },
         },
