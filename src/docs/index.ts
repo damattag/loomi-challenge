@@ -1,6 +1,7 @@
 import { consumerPaths } from './paths/consumer-paths';
 import { orderItemPaths } from './paths/order-item-paths';
 import { orderPaths } from './paths/order-paths';
+import { paymentPaths } from './paths/payment-paths';
 import { productPaths } from './paths/product-paths';
 import { salesReportPaths } from './paths/sales-report-paths';
 import { userPaths } from './paths/user-paths';
@@ -34,6 +35,7 @@ export default {
     ...orderPaths,
     ...orderItemPaths,
     ...salesReportPaths,
+    ...paymentPaths,
   },
 
   components: {
