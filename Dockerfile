@@ -16,7 +16,7 @@ RUN pnpm generate
 
 COPY --chown=node:node . .
 
-USER node
+# USER node
 
 EXPOSE 3001
 
