@@ -78,6 +78,7 @@ model Order {
   consumerId String      @map("consumer_id")
   status     OrderStatus @default(OPENED)
   total      Decimal     @default(0) @db.Money
+  closedAt   DateTime?   @map("closed_at")
   createdAt  DateTime    @default(now()) @map("created_at")
   updatedAt  DateTime    @updatedAt @map("updated_at")
 
@@ -104,8 +105,8 @@ model OrderItem {
 }
 
 model SalesReport {
-  id       String   @id @default(uuid())
-  period   DateTime
+  id       String  @id @default(uuid())
+  period   String
   total    Decimal
   products Int
   path     String

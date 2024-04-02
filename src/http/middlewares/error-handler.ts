@@ -18,6 +18,8 @@ const errorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
+  process.env.NODE_ENV === 'development' && console.error(err);
+
   let statusCode = 500;
   let message = 'Erro no servidor, tente novamente mais tarde.';
 

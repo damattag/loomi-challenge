@@ -3,13 +3,17 @@ import { Request, Response, NextFunction } from 'express';
 import { makeGenerateSalesReportUseCase } from '@use-cases/factories/sales-report/make-generate-use-case';
 import { makeListSalesReportsUseCase } from '@use-cases/factories/sales-report/make-list-use-case';
 import { makeGetSalesReportUseCase } from '@use-cases/factories/sales-report/make-get-sales-report-use-case';
-import path from 'path';
+import { GenerateSalesReportSchema } from '@DTOs/sales-report/generate';
 
 class SalesReportController {
   async generate(req: Request, res: Response, next: NextFunction) {
     try {
+      const { maxDate, minDate } = GenerateSalesReportSchema.parse(req.query);
       const generateUseCase = makeGenerateSalesReportUseCase();
-      const { salesReport } = await generateUseCase.execute();
+      const { salesReport } = await generateUseCase.execute({
+        maxDate,
+        minDate,
+      });
 
       res.status(200).json({
         data: salesReport,

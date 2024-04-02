@@ -5,6 +5,11 @@ import * as url from 'url';
 
 import { ISalesReportRepository } from '@repositories/sales-report-repository';
 
+interface GenerateSalesReportUseCaseRequest {
+  maxDate: Date;
+  minDate: Date;
+}
+
 interface GenerateSalesReportUseCaseResponse {
   salesReport: SalesReport;
 }
@@ -12,8 +17,14 @@ interface GenerateSalesReportUseCaseResponse {
 export class GenerateSalesReportUseCase {
   constructor(private salesReportRepository: ISalesReportRepository) {}
 
-  async execute(): Promise<GenerateSalesReportUseCaseResponse> {
-    const salesReportData = await this.salesReportRepository.getData();
+  async execute({
+    maxDate,
+    minDate,
+  }: GenerateSalesReportUseCaseRequest): Promise<GenerateSalesReportUseCaseResponse> {
+    const salesReportData = await this.salesReportRepository.getData({
+      maxDate,
+      minDate,
+    });
 
     const totalProducts = salesReportData.reduce(
       (acc, curr) => acc + curr.total_products,
@@ -38,7 +49,9 @@ export class GenerateSalesReportUseCase {
     fs.writeFileSync(path, csvData);
 
     const salesReport = await this.salesReportRepository.register({
-      period: new Date(),
+      period: `${new Date(minDate).toISOString()} - ${new Date(
+        maxDate,
+      ).toISOString()}`,
       products: totalProducts,
       total: totalPrice,
       path,
