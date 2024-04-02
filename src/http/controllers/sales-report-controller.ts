@@ -1,16 +1,77 @@
 import { Request, Response, NextFunction } from 'express';
 
-import { makeSalesReportUseCase } from '@use-cases/factories/sales-report/make-generate-use-case';
+import { makeGenerateSalesReportUseCase } from '@use-cases/factories/sales-report/make-generate-use-case';
+import { makeListSalesReportsUseCase } from '@use-cases/factories/sales-report/make-list-use-case';
+import { makeGetSalesReportUseCase } from '@use-cases/factories/sales-report/make-get-sales-report-use-case';
+import path from 'path';
 
 class SalesReportController {
   async generate(req: Request, res: Response, next: NextFunction) {
     try {
-      const generateUseCase = makeSalesReportUseCase();
-      const data = await generateUseCase.execute();
+      const generateUseCase = makeGenerateSalesReportUseCase();
+      const { salesReport } = await generateUseCase.execute();
 
-      res.status(200).json({ data });
+      res.status(200).json({
+        data: salesReport,
+        message: 'Relatório de vendas gerado com sucesso!',
+      });
 
       return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const listUseCase = makeListSalesReportsUseCase();
+      const { salesReports } = await listUseCase.execute();
+
+      res.status(200).json({
+        data: salesReports,
+        message: 'Relatórios de vendas listados com sucesso!',
+      });
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async getSalesReport(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { salesReportId } = req.params;
+
+      const getSalesReportUseCase = makeGetSalesReportUseCase();
+      const { salesReport } = await getSalesReportUseCase.execute({
+        id: salesReportId,
+      });
+
+      res.status(200).json({
+        data: salesReport,
+        message: 'Relatório de vendas retornado com sucesso!',
+      });
+
+      return next();
+    } catch (error) {
+      return next(error);
+    }
+  }
+
+  async download(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { salesReportId } = req.params;
+
+      const getSalesReportUseCase = makeGetSalesReportUseCase();
+      const { salesReport } = await getSalesReportUseCase.execute({
+        id: salesReportId,
+      });
+
+      res.status(200).download(salesReport.path, (err) => {
+        if (err) {
+          return next(err);
+        }
+      });
     } catch (error) {
       return next(error);
     }

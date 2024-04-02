@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, static as static_ } from 'express';
 import UserRoutes from './user-routes';
 import ConsumerRoutes from './consumer-routes';
 import ProductRoutes from './product-routes';

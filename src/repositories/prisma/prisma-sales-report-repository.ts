@@ -1,4 +1,5 @@
 import prisma from '@database';
+import { Prisma } from '@prisma/client';
 import {
   ISalesReportRepository,
   SalesReportResponse,
@@ -23,9 +24,23 @@ export class PrismaSalesReportRepository implements ISalesReportRepository {
     return result;
   }
 
-  async register(data: any) {
+  async register(data: Prisma.SalesReportCreateInput) {
     const salesReport = await prisma.salesReport.create({ data });
 
     return salesReport;
+  }
+
+  async findById(id: string) {
+    const salesReport = await prisma.salesReport.findUnique({
+      where: { id },
+    });
+
+    return salesReport;
+  }
+
+  async findAll() {
+    const salesReports = await prisma.salesReport.findMany();
+
+    return salesReports;
   }
 }

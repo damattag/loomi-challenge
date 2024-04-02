@@ -13,19 +13,19 @@ export class GenerateSalesReportUseCase {
   constructor(private salesReportRepository: ISalesReportRepository) {}
 
   async execute(): Promise<GenerateSalesReportUseCaseResponse> {
-    const salesReport = await this.salesReportRepository.getData();
+    const salesReportData = await this.salesReportRepository.getData();
 
-    const totalProducts = salesReport.reduce(
+    const totalProducts = salesReportData.reduce(
       (acc, curr) => acc + curr.total_products,
       0,
     );
 
-    const totalPrice = salesReport.reduce(
+    const totalPrice = salesReportData.reduce(
       (acc, curr) => acc + curr.total_price,
       0,
     );
 
-    const csvData = json2csv(salesReport, {
+    const csvData = json2csv(salesReportData, {
       delimiter: { field: ';' },
     });
 
@@ -37,13 +37,13 @@ export class GenerateSalesReportUseCase {
 
     fs.writeFileSync(path, csvData);
 
-    const salesInformation = await this.salesReportRepository.register({
+    const salesReport = await this.salesReportRepository.register({
       period: new Date(),
       products: totalProducts,
       total: totalPrice,
       path,
     });
 
-    return { salesReport: salesInformation };
+    return { salesReport };
   }
 }
