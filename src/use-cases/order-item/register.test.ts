@@ -28,9 +28,16 @@ describe('Register Order Item Use Case', () => {
       consumerId: 'consumer-id',
     });
 
+    const product = await productRepository.create({
+      name: 'Product',
+      price: 10,
+      description: 'Description',
+      stock: 10,
+    });
+
     const { orderItem } = await sut.execute({
       orderId: order.id,
-      productId: 'product-id',
+      productId: product.id,
       quantity: 2,
     });
 
