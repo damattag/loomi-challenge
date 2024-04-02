@@ -18,7 +18,7 @@ jobs:
           node-version: 20.9
 
       - name: Install dependencies and packages
-        run: pnpm install
+        run: npm install
 
       - name: Run the test Script
-        run: pnpm test
+        run: npm test
