@@ -2,18 +2,25 @@ import { beforeEach, expect, describe, it } from 'vitest';
 
 import { InMemoryOrderItemsRepository } from '@repositories/in-memory/in-memory-order-items-repository';
 import { InMemoryOrderRepository } from '@repositories/in-memory/in-memory-order-repository';
+import { InMemoryProductRepository } from '@repositories/in-memory/in-memory-product-repository';
 
 import { RegisterOrderItemUseCase } from '@use-cases/order-item/register';
 
 let orderItemRepository: InMemoryOrderItemsRepository;
 let orderRepository: InMemoryOrderRepository;
+let productRepository: InMemoryProductRepository;
 let sut: RegisterOrderItemUseCase;
 
 describe('Register Order Item Use Case', () => {
   beforeEach(() => {
     orderItemRepository = new InMemoryOrderItemsRepository();
     orderRepository = new InMemoryOrderRepository();
-    sut = new RegisterOrderItemUseCase(orderItemRepository, orderRepository);
+    productRepository = new InMemoryProductRepository();
+    sut = new RegisterOrderItemUseCase(
+      orderItemRepository,
+      orderRepository,
+      productRepository,
+    );
   });
 
   it('should be able register a new order item', async () => {
@@ -25,7 +32,6 @@ describe('Register Order Item Use Case', () => {
       orderId: order.id,
       productId: 'product-id',
       quantity: 2,
-      unitPrice: 10,
     });
 
     expect(orderItem.id).toEqual(expect.any(String));
