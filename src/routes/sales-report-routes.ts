@@ -4,6 +4,6 @@ import SalesReportController from '@http/controllers/sales-report-controller';
 
 const salesReportRouter = Router();
 
-salesReportRouter.route('/').get(SalesReportController.generate);
+salesReportRouter.route('/').post(SalesReportController.generate);
 
 export default salesReportRouter;
